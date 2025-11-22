@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import App from "./App.jsx";
-import logo from "./assets/images/logoTarakanita.png";
+import logo from "./assets/images/logo.png";
 import "./index.css";
 import { store } from "./stores/index.js";
 

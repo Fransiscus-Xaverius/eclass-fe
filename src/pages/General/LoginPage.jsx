@@ -25,9 +25,9 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 
-import logoCarolus from "../../assets/images/logoCarolus.png";
-import logoTarakanita from "../../assets/images/logoTarakanita.png";
-import bgLogin from "../../assets/images/bgLogin.jpeg";
+import logo from "../../assets/images/logo.png"
+import logoTarakanita from "../../assets/images/logo.png";
+import bgLogin from "../../assets/images/bgLogin.jpg";
 
 import {
   requestOtpForgotPassword,
@@ -157,7 +157,7 @@ export default function LoginPage({ onLogin }) {
             >
               <Card sx={{ p: 4, borderRadius: 3, boxShadow: 6 }}>
                 <Box sx={{ mb: 4, textAlign: "center" }}>
-                  <img src={logoCarolus} alt="Logo Carolus" width={200} />
+                  <img src={logo} alt="Logo " width={200} />
                 </Box>
 
                 <Typography
@@ -285,7 +285,7 @@ export default function LoginPage({ onLogin }) {
           </Grid>
 
           {/* Right side (Image) */}
-          <Grid
+          {/* <Grid
             md={6}
             sx={{
               display: { xs: "none", md: "flex" },
@@ -300,13 +300,13 @@ export default function LoginPage({ onLogin }) {
           >
             <motion.img
               src={logoTarakanita}
-              alt="Logo Tarakanita"
+              alt="Logo"
               style={{ maxWidth: 400, maxHeight: 540 }}
               initial={{ opacity: 0, x: 80 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
 
