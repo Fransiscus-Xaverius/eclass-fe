@@ -1,15 +1,10 @@
 // Page import
 // General
 import HomePage from "../pages/General/HomePage";
-import TablePage from "../pages/TablePage";
-import NotFoundPage from "../pages/NotFoundPage";
 import LoginPage from "../pages/General/LoginPage";
 import JadwalPage from "../pages/General/JadwalPage";
 import ProfilePage from "../pages/General/ProfilePage";
 import KelasPage from "../pages/General/KelasPage";
-import ChartPage from "../pages/ChartPage";
-import SweetAlertPage from "../pages/SweetAlertPage";
-import BackendPage from "../pages/BackendPage";
 import UjianPage from "../pages/General/UjianPage";
 
 // Siswa
@@ -40,14 +35,10 @@ import MasterKelasSiswaPage from "../pages/Admin/MasterKelasSiswaPage";
 // Icon import
 import AnnouncementOutlinedIcon from '@mui/icons-material/AnnouncementOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
-import StorageOutlinedIcon from '@mui/icons-material/StorageOutlined';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import SensorDoorOutlinedIcon from '@mui/icons-material/SensorDoorOutlined';
 import EventNoteOutlinedIcon from "@mui/icons-material/EventNoteOutlined";

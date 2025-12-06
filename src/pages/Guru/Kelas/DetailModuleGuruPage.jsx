@@ -15,6 +15,7 @@ import {
   CircularProgress,
   MenuItem,
   Chip,
+  LinearProgress,
 } from "@mui/material";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import TableTemplate from "../../../components/tables/TableTemplate";
@@ -35,6 +36,8 @@ export default function DetailModuleGuruPage() {
   const theme = useTheme();
   const { modulId } = useParams();
   const userId = parseInt(localStorage.getItem("id_user"));
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const [loading, setLoading] = useState(true);
   const [loadingDownload, setLoadingDownload] = useState(false);
@@ -231,6 +234,7 @@ export default function DetailModuleGuruPage() {
   const [openNilai, setOpenNilai] = useState(false);
   const [rowsNilai, setRowsNilai] = useState([]);
   const [loadingNilai, setLoadingNilai] = useState(false);
+  const [loadingSubmitNilai, setLoadingSubmitNilai] = useState(false);
 
   const fetchNilai = async () => {
     if (!moduleInfo?.id_modul) return;
@@ -272,6 +276,7 @@ export default function DetailModuleGuruPage() {
   };
 
   const handleSaveNilai = async () => {
+    setLoadingSubmitNilai(true);
     try {
       const dataToSave = rowsNilai
         .filter((r) => r.nilai !== "" && !isNaN(r.nilai))
@@ -305,13 +310,16 @@ export default function DetailModuleGuruPage() {
     } catch (err) {
       console.error("handleSaveNilai error:", err);
     }
+    setLoadingSubmitNilai(false)
   };
 
-  const handleDownload = async () => {
-    setLoadingDownload(true);
-    await downloadPengumpulanModulZip(modulId)
-    setLoadingDownload(false);
-  }
+  const handleDownload = () => {
+    downloadPengumpulanModulZip(
+      modulId,
+      setProgress,
+      setIsDownloading
+    );
+  };
 
   // =================== Table Config ===================
   const columnsPengumpulan = [
@@ -382,21 +390,29 @@ export default function DetailModuleGuruPage() {
         <Box
           sx={{
             display: "flex",
-            flexDirection: { xs: "column", sm: "row" },
+            flexDirection: "column",
             gap: 2,
             justifyContent: "center",
+            alignItems: "center",
             mt: 2,
           }}
         >
           <Button
             variant="contained"
             color="primary"
-            onClick={() => handleDownload()}
-            disabled={loadingDownload}
-            loading={loadingDownload}
+            onClick={handleDownload}
+            disabled={isDownloading}
+            startIcon={isDownloading ? <CircularProgress size={20} /> : null}
           >
-            Download Semua Pengumpulan (ZIP)
+            {isDownloading ? "Sedang Mengunduh..." : "Download Semua Pengumpulan (ZIP)"}
           </Button>
+
+          {/* {isDownloading && (
+            <Box sx={{ width: "100%", maxWidth: 400, textAlign: "center" }}>
+              <LinearProgress variant="determinate" value={progress} />
+              <Typography sx={{ mt: 1, fontWeight: 600 }}>{progress}%</Typography>
+            </Box>
+          )} */}
 
           <Button variant="contained" color="success" onClick={handleOpenNilai}>
             Penilaian
@@ -612,7 +628,7 @@ export default function DetailModuleGuruPage() {
 
         <DialogActions>
           <Button onClick={() => setOpenNilai(false)}>Batal</Button>
-          <Button onClick={handleSaveNilai} variant="contained" color="primary">
+          <Button onClick={handleSaveNilai} loading={loadingSubmitNilai} disabled={loadingSubmitNilai} variant="contained" color="primary">
             Simpan Nilai
           </Button>
         </DialogActions>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Typography, CircularProgress, Button, TextField, Radio, Checkbox } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
-import { PopupError, ToastError } from "../../../composables/sweetalert";
+import { PopupError, ToastError, ToastSuccess } from "../../../composables/sweetalert";
 import { getUjianById } from "../../../services/ujianService";
 import { getKelasTahunAjaranById } from "../../../services/kelasTahunAjaranService";
 import { getRandomSoal } from "../../../services/soalService";
@@ -179,18 +179,20 @@ export default function FormUjianSiswaPage() {
       if (res?.data) {
         // kalau ada data, set soalnya
         setSoal(res.data);
+        return true;
       } else {
         // kalau null, tandanya semua sudah dijawab
         setSoal(null);
         setIsLocked(false);
-        releaseExamLock();
+        ToastSuccess.fire({ title: "Telah selesai mengerjakan ujian!" });
       }
     } catch (err) {
       console.error(err);
       setSoal(null);
       setIsLocked(false);
-      releaseExamLock();
+      return false;
     }
+    return false;
   };
 
   useEffect(() => {
@@ -233,10 +235,10 @@ export default function FormUjianSiswaPage() {
       setHasLeftTab(false);
 
       // lanjut ke soal berikut
-      setNomorSoal((prev) => prev + 1);
+      const cekSoal = await fetchSoal();
+      if(cekSoal) setNomorSoal((prev) => prev + 1);
       setJawaban("");
       setSelectedIndex(null);
-      fetchSoal();
       setLoadingSubmit(false)
     } catch (err) {
       console.error(err);

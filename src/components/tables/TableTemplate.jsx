@@ -138,6 +138,7 @@ function TableTemplateHead({
 function TableTemplateToolbar({
   numSelected,
   onDelete,
+  setSelected,
   title,
   search,
   onSearchChange,
@@ -157,6 +158,11 @@ function TableTemplateToolbar({
 
   const handleFilterClick = (event) => setAnchorEl(event.currentTarget);
   const handleFilterClose = () => setAnchorEl(null);
+
+  const handleDelete = async () => {
+    const status = await onDelete();
+    if(status) setSelected([]);
+  }
 
   return (
     <Box sx={{ flexDirection: 'column', gap: 1 }}>
@@ -183,7 +189,7 @@ function TableTemplateToolbar({
               {numSelected} selected
             </Typography>
             <Tooltip title="Delete">
-              <IconButton onClick={onDelete} color="error">
+              <IconButton onClick={handleDelete} color="error">
                 <DeleteOutlineOutlinedIcon />
               </IconButton>
             </Tooltip>
@@ -423,6 +429,7 @@ export default function TableTemplate({
           title={title}
           numSelected={selected.length}
           onDelete={() => onDelete && onDelete(selected)}
+          setSelected={setSelected}
           search={search}
           onSearchChange={setSearch}
           columns={columns}

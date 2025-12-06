@@ -268,6 +268,7 @@ export default function RegisterPage() {
     const confirm = await PopupDelete.fire();
     if (confirm.isConfirmed) {
       setSubmitLoading(true);
+      let status = true;
       try {
         if (Array.isArray(data)) {
           const ids = data.map((item) =>
@@ -283,9 +284,12 @@ export default function RegisterPage() {
         fetchUsers();
       } catch (err) {
         console.error("Delete gagal:", err);
+        status = false;
       }
       setSubmitLoading(false);
+      return status;
     }
+    return false;
   };
 
   // ================== UPLOAD ==================
